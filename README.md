@@ -188,20 +188,47 @@ Each assignment includes:
 - Expected output format
 - Hints when you get stuck (powered by AI)
 
-## 🛠️ Technology Stack
+## 🛠️ Technology Stack & Architecture
 
-### Frontend
-- **React.js** - UI framework
-- **React Router** - Client-side routing
-- **Monaco Editor** - SQL code editor
-- **SCSS** - Styling with responsive design
-- **Axios** - HTTP client
+### Frontend Technologies
+- **React.js** - Component-based UI framework for reusable components
+- **React Router** - Client-side routing for SPA navigation
+- **Monaco Editor** - VS Code-like SQL editor with syntax highlighting
+- **SCSS** - CSS preprocessor for maintainable, responsive styling
+- **Axios** - Promise-based HTTP client for API communication
 
-### Backend
-- **Node.js / Express.js** - Server runtime and framework
-- **PostgreSQL** - Sandbox database for query execution
-- **MongoDB** - Persistence database for assignments and progress
-- **OpenAI/Gemini API** - LLM integration for hints (optional)
+### Backend Technologies
+- **Node.js** - JavaScript runtime for server-side development
+- **Express.js** - Minimal web framework for RESTful API
+- **PostgreSQL** - Production-grade SQL database for authentic learning
+- **MongoDB** - NoSQL database for flexible assignment and progress storage
+- **OpenAI/Gemini API** - LLM integration for intelligent hint generation
+
+### Architecture Decisions
+
+**Why React.js?**
+- Component reusability across different assignment types
+- Excellent state management for real-time query results
+- Large ecosystem and community support
+- Easy integration with Monaco Editor
+
+**Why PostgreSQL for SQL Sandbox?**
+- Authentic SQL learning experience (not SQLite simulations)
+- Advanced features like window functions, CTEs, and complex joins
+- Schema isolation for secure multi-user environment
+- Industry-standard database used in real companies
+
+**Why MongoDB for App Data?**
+- Flexible schema for different assignment types
+- Easy to store complex nested data (sample tables, expected outputs)
+- Fast queries for user progress and attempt history
+- JSON-like documents match JavaScript objects perfectly
+
+**Why Monaco Editor?**
+- Professional code editing experience
+- Built-in SQL syntax highlighting and error detection
+- Familiar interface for developers (same as VS Code)
+- Customizable themes and keyboard shortcuts
 
 ## 📱 Responsive Design
 

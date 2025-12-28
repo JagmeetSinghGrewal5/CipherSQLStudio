@@ -1,0 +1,164 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.sample-data-viewer {
+  @include card;
+}
+
+.sample-data-viewer__title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-sm;
+  color: $color-text-primary;
+}
+
+.sample-data-viewer__empty {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  font-style: italic;
+}
+
+.sample-data-viewer__tables {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.sample-data-viewer__table {
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+}
+
+.sample-data-viewer__table-header {
+  width: 100%;
+  padding: $spacing-sm;
+  background-color: $color-bg-secondary;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  transition: background-color $transition-fast;
+  min-height: 44px; // Touch-friendly
+
+  &:hover {
+    background-color: darken($color-bg-secondary, 2%);
+  }
+
+  &:active {
+    background-color: darken($color-bg-secondary, 5%);
+  }
+}
+
+.sample-data-viewer__table-name {
+  flex: 1;
+  text-align: left;
+}
+
+.sample-data-viewer__table-toggle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  min-width: 24px;
+  text-align: center;
+}
+
+.sample-data-viewer__table-content {
+  padding: $spacing-sm;
+  background-color: $color-bg-primary;
+  border-top: 1px solid $color-border;
+}
+
+.sample-data-viewer__schema {
+  margin-bottom: $spacing-md;
+
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-xs;
+    color: $color-text-primary;
+  }
+
+  pre {
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    background-color: $color-bg-secondary;
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    overflow-x: auto;
+    @include custom-scrollbar;
+
+    @include tablet {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.sample-data-viewer__data {
+  h4 {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-xs;
+    color: $color-text-primary;
+  }
+}
+
+.sample-data-viewer__table-wrapper {
+  overflow-x: auto;
+  @include custom-scrollbar;
+  margin-bottom: $spacing-xs;
+}
+
+.sample-data-viewer__data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-xs;
+  min-width: 300px;
+
+  @include tablet {
+    font-size: $font-size-sm;
+  }
+
+  thead {
+    background-color: $color-bg-secondary;
+  }
+
+  th {
+    padding: $spacing-xs;
+    text-align: left;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    border-bottom: 2px solid $color-border;
+    white-space: nowrap;
+
+    @include tablet {
+      padding: $spacing-sm;
+    }
+  }
+
+  td {
+    padding: $spacing-xs;
+    border-bottom: 1px solid $color-border;
+    color: $color-text-primary;
+
+    @include tablet {
+      padding: $spacing-sm;
+    }
+  }
+
+  tbody tr:hover {
+    background-color: rgba($color-primary, 0.05);
+  }
+}
+
+.sample-data-viewer__note {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  font-style: italic;
+  margin-top: $spacing-xs;
+}
+

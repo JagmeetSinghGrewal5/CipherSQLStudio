@@ -1,0 +1,130 @@
+@import './variables';
+
+// Media Query Mixins
+@mixin mobile {
+  @media (min-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin large-desktop {
+  @media (min-width: $breakpoint-large) {
+    @content;
+  }
+}
+
+// Button Mixin
+@mixin button-base {
+  padding: $spacing-xs $spacing-md;
+  border: none;
+  border-radius: $border-radius-md;
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+  touch-action: manipulation;
+  min-height: 44px; // Touch-friendly minimum size
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $color-primary;
+  color: $color-text-light;
+
+  &:hover:not(:disabled) {
+    background-color: $color-primary-dark;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: $color-bg-secondary;
+  color: $color-text-primary;
+  border: 1px solid $color-border;
+
+  &:hover:not(:disabled) {
+    background-color: $color-bg-primary;
+  }
+}
+
+// Card Mixin
+@mixin card {
+  background-color: $color-bg-primary;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+  padding: $spacing-md;
+  transition: box-shadow $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+// Container Mixin
+@mixin container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $spacing-sm;
+
+  @include tablet {
+    padding: 0 $spacing-md;
+    max-width: 100%;
+  }
+
+  @include desktop {
+    max-width: 1200px;
+  }
+
+  @include large-desktop {
+    max-width: 1400px;
+  }
+}
+
+// Scrollbar Styling
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-bg-secondary;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-border-dark;
+    border-radius: 4px;
+
+    &:hover {
+      background: darken($color-border-dark, 10%);
+    }
+  }
+}
+

@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 // CORS setup - allow frontend to connect
 const allowedOrigins = [
   'http://localhost:3001', // Local development
-  process.env.FRONTEND_URL || 'https://cipher-sql-studio-lovat.vercel.app', // Production frontend
+  process.env.FRONTEND_URL || 'https://cipher-sql-studio-orcin.vercel.app/', // Production frontend
 ];
 
 app.use(cors({

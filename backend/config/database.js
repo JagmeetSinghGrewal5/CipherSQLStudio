@@ -5,16 +5,44 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 // PostgreSQL connection pool - this is where students run their SQL queries
-const pgPool = new Pool({
-  host: process.env.POSTGRES_HOST || 'localhost',
-  port: process.env.POSTGRES_PORT || 5432,
-  database: process.env.POSTGRES_DB || 'sql_sandbox',
-  user: process.env.POSTGRES_USER || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'postgres',
-  max: 20, // Max connections in pool
-  idleTimeoutMillis: 30000, // Close idle connections after 30s
-  connectionTimeoutMillis: 2000, // Fail fast if can't connect
-});
+// Supports both individual parameters and connection strings (for Neon)
+const pgPool = new Pool(
+  process.env.DATABASE_URL ? 
+  {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+      require: true
+    },
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 10000, // Increased for cloud connections
+  } : 
+  {
+    host: process.env.POSTGRES_HOST || 'localhost',
+    port: process.env.POSTGRES_PORT || 5432,
+    database: process.env.POSTGRES_DB || 'sql_sandbox',
+    user: process.env.POSTGRES_USER || 'postgres',
+    password: process.env.POSTGRES_PASSWORD || 'postgres',
+    ssl: process.env.POSTGRES_HOST && process.env.POSTGRES_HOST !== 'localhost' ? {
+      rejectUnauthorized: false,
+      require: true
+    } : false,
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 10000,
+  }
+);
+
+// Test PostgreSQL connection on startup
+pgPool.connect()
+  .then(client => {
+    console.log('✅ Connected to PostgreSQL (Neon)');
+    client.release();
+  })
+  .catch(err => {
+    console.error('❌ PostgreSQL connection error:', err.message);
+  });
 
 // MongoDB connection - stores assignments, user progress, etc.
 let mongoClient;

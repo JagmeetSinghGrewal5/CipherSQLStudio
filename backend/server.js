@@ -28,12 +28,30 @@ app.use('/api/hints', hintRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/attempts', attemptRoutes);
 
+// Root route for Vercel
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'CipherSQLStudio API Server',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      assignments: '/api/assignments',
+      auth: '/api/auth',
+      queries: '/api/queries',
+      progress: '/api/progress',
+      attempts: '/api/attempts'
+    }
+  });
+});
+
 // Simple health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
     message: 'CipherSQLStudio API is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
@@ -46,8 +64,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 CipherSQLStudio server is running on port ${PORT}`);
-  console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
-});
+// Start server (only in non-serverless environments)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 CipherSQLStudio server is running on port ${PORT}`);
+    console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+  });
+}
+
+// Export for Vercel serverless functions
+module.exports = app;
 

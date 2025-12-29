@@ -246,6 +246,36 @@ The application is built with a mobile-first approach and includes:
 - Query timeout protection (10 seconds)
 - Input sanitization and validation
 
+## 🚀 Deployment
+
+### Quick Deploy to Vercel
+
+CipherSQLStudio is ready for deployment to Vercel with zero configuration:
+
+```bash
+# Run deployment preparation script
+./deploy.sh        # Linux/Mac
+# or
+deploy.bat         # Windows
+```
+
+**📖 Detailed Instructions:** See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for complete step-by-step deployment guide.
+
+### Production URLs
+- **Frontend:** Deploy to Vercel from `frontend/` folder
+- **Backend:** Deploy to Vercel from `backend/` folder
+- **Databases:** Already configured (Neon PostgreSQL + MongoDB Atlas)
+
+### Environment Variables Required
+
+**Backend:**
+- `DATABASE_URL` - Neon PostgreSQL connection string
+- `MONGODB_URI` - MongoDB Atlas connection string  
+- `JWT_SECRET` - Secure random string for authentication
+
+**Frontend:**
+- `REACT_APP_API_URL` - Your deployed backend URL
+
 ## 🚀 Development Notes
 
 ### Running in Development Mode

@@ -12,7 +12,8 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     'http://localhost:3001', // Local development
-    'https://cipher-sql-studio-lovat.vercel.app', // Your frontend URL
+    'https://cipher-sql-studio-beige.vercel.app/',
+    'https://cipher-sql-studio-beige.vercel.app/ ',// Your frontend URL
   ],
   credentials: true
 }));

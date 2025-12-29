@@ -9,12 +9,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // CORS setup - allow frontend to connect
+const allowedOrigins = [
+  'http://localhost:3001', // Local development
+  process.env.FRONTEND_URL || 'https://cipher-sql-studio-lovat.vercel.app', // Production frontend
+];
+
 app.use(cors({
-  origin: [
-    'http://localhost:3001', // Local development
-    'https://cipher-sql-studio-beige.vercel.app/',
-    'https://cipher-sql-studio-beige.vercel.app/ ',// Your frontend URL
-  ],
+  origin: allowedOrigins,
   credentials: true
 }));
 
@@ -26,6 +27,7 @@ const queryRoutes = require('./routes/queries');
 const authRoutes = require('./routes/auth');
 const progressRoutes = require('./routes/progress');
 const attemptRoutes = require('./routes/attempts');
+const hintRoutes = require('./routes/hints');
 
 // API Routes
 app.use('/api/assignments', assignmentRoutes);
@@ -33,6 +35,7 @@ app.use('/api/queries', queryRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/attempts', attemptRoutes);
+app.use('/api/hints', hintRoutes);
 
 // Root route
 app.get('/', (req, res) => {

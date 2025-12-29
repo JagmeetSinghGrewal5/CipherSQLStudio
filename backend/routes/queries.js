@@ -70,7 +70,7 @@ router.post('/execute',
       }
 
       // Get assignment to check expected output and ensure schema exists
-      const db = getMongoDB();
+      const db = await getMongoDB(); // Make it async
       const { ObjectId } = require('mongodb');
       const assignment = await db.collection('assignments').findOne({ 
         _id: new ObjectId(assignmentId) 

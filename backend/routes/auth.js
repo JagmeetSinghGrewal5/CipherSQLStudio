@@ -26,7 +26,7 @@ router.post('/register',
       }
 
       const { email, password, name } = req.body;
-      const db = getMongoDB();
+      const db = await getMongoDB();
 
       // Check if user already exists
       const existingUser = await db.collection('users').findOne({ email: email.toLowerCase() });
@@ -86,7 +86,7 @@ router.post('/login',
       }
 
       const { email, password } = req.body;
-      const db = getMongoDB();
+      const db = await getMongoDB();
 
       // Find user
       const user = await db.collection('users').findOne({ email: email.toLowerCase() });
@@ -152,7 +152,7 @@ router.put('/profile', authenticate,
       }
 
       const { name } = req.body;
-      const db = getMongoDB();
+      const db = await getMongoDB();
       const { ObjectId } = require('mongodb');
 
       const updateData = {
@@ -201,7 +201,7 @@ router.put('/change-password', authenticate,
       }
 
       const { currentPassword, newPassword } = req.body;
-      const db = getMongoDB();
+      const db = await getMongoDB();
       const { ObjectId } = require('mongodb');
 
       // Get user

@@ -6,7 +6,7 @@ const { getMongoDB } = require('../config/database');
 router.get('/user/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const db = getMongoDB();
+    const db = await getMongoDB();
     
     // Get attempts with assignment details
     const attempts = await db.collection('attempts').aggregate([
@@ -54,7 +54,7 @@ router.get('/user/:userId', async (req, res) => {
 router.get('/user/:userId/assignment/:assignmentId', async (req, res) => {
   try {
     const { userId, assignmentId } = req.params;
-    const db = getMongoDB();
+    const db = await getMongoDB();
     const { ObjectId } = require('mongodb');
     
     const attempts = await db.collection('attempts').find({
@@ -73,7 +73,7 @@ router.get('/user/:userId/assignment/:assignmentId', async (req, res) => {
 router.get('/user/:userId/stats', async (req, res) => {
   try {
     const { userId } = req.params;
-    const db = getMongoDB();
+    const db = await getMongoDB();
     
     const stats = await db.collection('attempts').aggregate([
       { $match: { userId: userId } },
@@ -139,7 +139,7 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const db = getMongoDB();
+    const db = await getMongoDB();
     const { ObjectId } = require('mongodb');
 
     const attempt = {
@@ -171,7 +171,7 @@ router.post('/', async (req, res) => {
 router.delete('/:attemptId', async (req, res) => {
   try {
     const { attemptId } = req.params;
-    const db = getMongoDB();
+    const db = await getMongoDB();
     const { ObjectId } = require('mongodb');
 
     const result = await db.collection('attempts').deleteOne({
@@ -192,7 +192,7 @@ router.delete('/:attemptId', async (req, res) => {
 // Get leaderboard (top performers)
 router.get('/leaderboard', async (req, res) => {
   try {
-    const db = getMongoDB();
+    const db = await getMongoDB();
     
     const leaderboard = await db.collection('attempts').aggregate([
       {

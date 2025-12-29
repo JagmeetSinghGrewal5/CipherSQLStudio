@@ -6,7 +6,7 @@ const { authenticate } = require('../middleware/auth');
 // Get current user's progress for all assignments (requires authentication)
 router.get('/', authenticate, async (req, res) => {
   try {
-    const db = getMongoDB();
+    const db = await getMongoDB();
     
     const progress = await db.collection('userProgress')
       .find({ userId: req.user.id })
@@ -23,7 +23,7 @@ router.get('/', authenticate, async (req, res) => {
 router.get('/assignment/:assignmentId', authenticate, async (req, res) => {
   try {
     const { assignmentId } = req.params;
-    const db = getMongoDB();
+    const db = await getMongoDB();
     const { ObjectId } = require('mongodb');
     
     const progress = await db.collection('userProgress').findOne({
@@ -45,7 +45,7 @@ router.get('/assignment/:assignmentId', authenticate, async (req, res) => {
 // Get all completed assignments for current user (requires authentication)
 router.get('/completed', authenticate, async (req, res) => {
   try {
-    const db = getMongoDB();
+    const db = await getMongoDB();
     
     const completed = await db.collection('userProgress')
       .find({ 

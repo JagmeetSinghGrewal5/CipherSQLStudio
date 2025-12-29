@@ -5,7 +5,7 @@ const { getMongoDB } = require('../config/database');
 // Get all assignments
 router.get('/', async (req, res) => {
   try {
-    const db = getMongoDB();
+    const db = await getMongoDB();
     const assignments = await db.collection('assignments').find({}).toArray();
     res.json(assignments);
   } catch (error) {
@@ -17,9 +17,11 @@ router.get('/', async (req, res) => {
 // Get single assignment by ID
 router.get('/:id', async (req, res) => {
   try {
-    const db = getMongoDB();
+    const db = await getMongoDB();
     const { ObjectId } = require('mongodb');
-    const assignment = await db.collection('assignments').findOne({ _id: new ObjectId(req.params.id) });
+    const assignment = await db.collection('assignments').findOne({ 
+      _id: new ObjectId(req.params.id) 
+    });
     
     if (!assignment) {
       return res.status(404).json({ error: 'Assignment not found' });

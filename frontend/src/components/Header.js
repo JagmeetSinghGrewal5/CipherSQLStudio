@@ -38,12 +38,16 @@ const Header = () => {
           >
             📚 Assignments
           </Link>
-          <Link 
-            to="/attempts" 
-            className={`nav-link ${isActive('/attempts') ? 'active' : ''}`}
-          >
-            📊 Progress
-          </Link>
+          
+          {/* Only show Progress link for authenticated users */}
+          {isAuthenticated && (
+            <Link 
+              to="/attempts" 
+              className={`nav-link ${isActive('/attempts') ? 'active' : ''}`}
+            >
+              📊 Progress
+            </Link>
+          )}
           
           {isAuthenticated ? (
             <div className="user-menu">

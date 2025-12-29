@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import './AttemptsTracker.scss';
 
@@ -13,6 +14,7 @@ const AttemptsTracker = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all'); // all, correct
   const [sortBy, setSortBy] = useState('recent'); // recent, assignment, status
+  const { user } = useAuth(); // Get authenticated user
 
   useEffect(() => {
     fetchAttempts();
@@ -21,9 +23,8 @@ const AttemptsTracker = () => {
   const fetchAttempts = async () => {
     try {
       setLoading(true);
-      // Using session-based tracking since we don't have proper auth yet
-      // TODO: implement proper user authentication later
-      const userId = 'session_user';
+      // Use authenticated user's ID for personalized progress tracking
+      const userId = user?.id || user?._id || 'session_user';
       const response = await axios.get(`${API_BASE_URL}/attempts/user/${userId}`);
       setAttempts(response.data);
       setError(null);

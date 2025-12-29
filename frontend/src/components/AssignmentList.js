@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import './AssignmentList.scss';
 
@@ -13,6 +14,7 @@ const AssignmentList = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all'); // could probably use an enum here but whatever
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth(); // Add authentication check
 
   useEffect(() => {
     fetchAssignments();
@@ -176,9 +178,20 @@ const AssignmentList = () => {
         <div className="cta-card">
           <h3>Ready to practice SQL?</h3>
           <p>Start with any assignment and track your progress!</p>
-          <Link to="/attempts" className="btn btn-secondary">
-            View My Progress
-          </Link>
+          {isAuthenticated ? (
+            <Link to="/attempts" className="btn btn-secondary">
+              View My Progress
+            </Link>
+          ) : (
+            <div className="auth-cta">
+              <Link to="/login" className="btn btn-primary">
+                Login to Track Progress
+              </Link>
+              <Link to="/register" className="btn btn-secondary">
+                Sign Up Free
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

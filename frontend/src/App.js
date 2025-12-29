@@ -9,6 +9,7 @@ import AttemptsTracker from './components/AttemptsTracker';
 import Login from './components/Login';
 import Register from './components/Register';
 import Header from './components/Header';
+import ProtectedRoute from './components/ProtectedRoute';
 import './styles/App.scss';
 
 function App() {
@@ -23,7 +24,12 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/" element={<AssignmentList />} />
               <Route path="/assignment/:id" element={<AssignmentAttempt />} />
-              <Route path="/attempts" element={<AttemptsTracker />} />
+              {/* Protected route - only accessible to authenticated users */}
+              <Route path="/attempts" element={
+                <ProtectedRoute>
+                  <AttemptsTracker />
+                </ProtectedRoute>
+              } />
               {/* TODO: Add 404 page when I have time */}
             </Routes>
           </main>

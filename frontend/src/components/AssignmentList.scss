@@ -322,6 +322,18 @@
     color: $color-text-secondary;
     margin-bottom: 1.5rem;
   }
+
+  .auth-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 }
 
 // Buttons

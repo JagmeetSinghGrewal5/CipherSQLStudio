@@ -16,7 +16,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware setup
-app.use(cors()); // Allow cross-origin requests from frontend
+const corsOptions = {
+  origin: [
+    'http://localhost:3001', // Local development
+    'https://cipher-sql-studio-lovat.vercel.app', // Production frontend
+    'https://cipher-sql-studio-backend.vercel.app' // Backend (for testing)
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)); // Allow cross-origin requests from specified origins
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

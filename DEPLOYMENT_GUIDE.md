@@ -102,23 +102,30 @@ Both projects will automatically redeploy when you push to your GitHub repositor
 - **Backend:** Redeploys on changes to `backend/` folder
 - **Frontend:** Redeploys on changes to `frontend/` folder
 
-## 🧪 Testing Your Deployment
+## 🎉 **Deployment Complete!**
 
-### Backend Testing
-```bash
-# Health check
-curl https://your-backend.vercel.app/api/health
+Your CipherSQLStudio is now fully deployed:
 
-# Get assignments
-curl https://your-backend.vercel.app/api/assignments
-```
+- **🎨 Frontend:** https://cipher-sql-studio-lovat.vercel.app
+- **🔧 Backend:** https://cipher-sql-studio-backend.vercel.app
 
-### Frontend Testing
-1. Visit your frontend URL
-2. Browse assignments
-3. Try executing a SQL query
+### 🧪 Testing Your Live Application
+
+**Frontend Testing:**
+1. Visit https://cipher-sql-studio-lovat.vercel.app
+2. Browse SQL assignments
+3. Try executing queries
 4. Test login/registration
 5. Check progress tracking
+
+**Backend Testing:**
+```bash
+# Health check
+curl https://cipher-sql-studio-backend.vercel.app/api/health
+
+# Get assignments
+curl https://cipher-sql-studio-backend.vercel.app/api/assignments
+```
 
 ## 🔧 Troubleshooting
 

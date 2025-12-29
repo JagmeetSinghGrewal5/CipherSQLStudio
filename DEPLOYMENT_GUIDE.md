@@ -81,7 +81,14 @@ GENERATE_SOURCEMAP=false
 CI=false
 ```
 
-**⚠️ Important:** Replace `your-backend-deployment.vercel.app` with your actual backend URL from Step 3 above.
+**⚠️ Important:** Replace `your-backend-deployment.vercel.app` with your actual backend URL: `cipher-sql-studio-backend.vercel.app`
+
+**For this project, use:**
+```env
+REACT_APP_API_URL=https://cipher-sql-studio-backend.vercel.app/api
+GENERATE_SOURCEMAP=false
+CI=false
+```
 
 ### Step 3: Deploy Frontend
 

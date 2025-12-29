@@ -22,7 +22,7 @@ const AssignmentAttempt = () => {
 
   useEffect(() => {
     fetchAssignment();
-  }, [id]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchAssignment = async () => {
     try {

@@ -18,7 +18,7 @@ const AttemptsTracker = () => {
 
   useEffect(() => {
     fetchAttempts();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchAttempts = async () => {
     try {

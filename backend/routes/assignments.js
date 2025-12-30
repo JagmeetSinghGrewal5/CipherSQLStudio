@@ -21,11 +21,11 @@ router.get('/', async (req, res) => {
     
     res.json(assignments);
   } catch (error) {
-    console.error('❌ Error fetching assignments:', error.message);
-    console.error('Stack:', error.stack);
+    console.error('❌ Error fetching assignments:', error);
     res.status(500).json({ 
       error: 'Failed to fetch assignments',
-      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 });
@@ -46,7 +46,10 @@ router.get('/:id', async (req, res) => {
     res.json(assignment);
   } catch (error) {
     console.error('Error fetching assignment:', error);
-    res.status(500).json({ error: 'Failed to fetch assignment' });
+    res.status(500).json({ 
+      error: 'Failed to fetch assignment',
+      message: error.message
+    });
   }
 });
 

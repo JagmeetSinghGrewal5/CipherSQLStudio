@@ -12,8 +12,10 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3001', // Local development
   'http://localhost:3000', // Alternative local port
-  process.env.FRONTEND_URL || 'https://cipher-sql-studio-lovat.vercel.app', // Production frontend
-];
+  'https://cipher-sql-studio-lovat.vercel.app', // Production frontend
+  'https://cipher-sql-studio-frontend.vercel.app', // Alternative frontend URL
+  process.env.FRONTEND_URL, // Environment variable override
+].filter(Boolean); // Remove any undefined values
 
 app.use(cors({
   origin: allowedOrigins,

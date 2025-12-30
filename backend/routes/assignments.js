@@ -5,12 +5,28 @@ const { getMongoDB } = require('../config/database');
 // Get all assignments
 router.get('/', async (req, res) => {
   try {
+    console.log('📋 Fetching assignments...');
+    
+    // Check if MongoDB URI is set
+    if (!process.env.MONGODB_URI) {
+      console.error('❌ MONGODB_URI not set');
+      return res.status(500).json({ error: 'Database configuration missing' });
+    }
+    
     const db = await getMongoDB();
+    console.log('✅ MongoDB connected, querying assignments...');
+    
     const assignments = await db.collection('assignments').find({}).toArray();
+    console.log(`✅ Found ${assignments.length} assignments`);
+    
     res.json(assignments);
   } catch (error) {
-    console.error('Error fetching assignments:', error);
-    res.status(500).json({ error: 'Failed to fetch assignments' });
+    console.error('❌ Error fetching assignments:', error.message);
+    console.error('Stack:', error.stack);
+    res.status(500).json({ 
+      error: 'Failed to fetch assignments',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 });
 

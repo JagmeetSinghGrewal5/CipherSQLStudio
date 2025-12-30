@@ -11,7 +11,8 @@ const PORT = process.env.PORT || 5000;
 // CORS setup - allow frontend to connect
 const allowedOrigins = [
   'http://localhost:3001', // Local development
-  process.env.FRONTEND_URL || 'https://cipher-sql-studio-orcin.vercel.app/', // Production frontend
+  'http://localhost:3000', // Alternative local port
+  process.env.FRONTEND_URL || 'https://cipher-sql-studio-lovat.vercel.app', // Production frontend
 ];
 
 app.use(cors({
@@ -51,6 +52,40 @@ app.get('/api/health', (req, res) => {
     status: 'ok', 
     timestamp: new Date().toISOString()
   });
+});
+
+// Debug endpoint for production
+app.get('/api/debug', async (req, res) => {
+  try {
+    const envCheck = {
+      NODE_ENV: process.env.NODE_ENV,
+      MONGODB_URI: process.env.MONGODB_URI ? 'Set' : 'Not set',
+      DATABASE_URL: process.env.DATABASE_URL ? 'Set' : 'Not set',
+      FRONTEND_URL: process.env.FRONTEND_URL || 'Not set'
+    };
+    
+    // Test MongoDB connection
+    let mongoStatus = 'Not tested';
+    try {
+      const { getMongoDB } = require('./config/database');
+      const db = await getMongoDB();
+      const collections = await db.listCollections().toArray();
+      mongoStatus = `Connected - ${collections.length} collections`;
+    } catch (error) {
+      mongoStatus = `Failed: ${error.message}`;
+    }
+    
+    res.json({
+      environment: envCheck,
+      mongodb: mongoStatus,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+      stack: error.stack
+    });
+  }
 });
 
 // Start server locally
